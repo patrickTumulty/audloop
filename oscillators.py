@@ -139,25 +139,6 @@ class Oscillators:
         osc_dict["counter"] = (osc_dict["counter"] + osc_dict["step"]) % self.table_size
         return amplitude_value
 
-    def sinosc_cast(self, frequency, osc_num):
-        """
-        frequency : float or int
-            Frequency in Hertz
-        
-        osc_num : int
-            Indicate a unique oscillator 
-            Note : Numbering starts at 1 (Not 0)
-        """
-        if len(self._sin_oscillators) == 0:
-            raise AssertionError("No oscillators created. Run 'create_sin_oscillators()' first.")
-        osc_dict = self._sin_oscillators[osc_num - 1]
-        if osc_dict["frequency"] != frequency:
-            osc_dict["frequency"] = frequency
-            osc_dict["step"] = int((self.table_size * frequency) / self.fs)
-        amplitude_value = self._sin_lookup[osc_dict["counter"]]
-        osc_dict["counter"] = (osc_dict["counter"] + osc_dict["step"]) % self.table_size
-        return amplitude_value
-
     def cososc(self, frequency, osc_num):
         """
         frequency : float or int
