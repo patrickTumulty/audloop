@@ -15,7 +15,7 @@ from audioprocessorgeneric import AudioProcessorGeneric
 
 class AudioProcessor(AudioProcessorGeneric):
     def on_start_up(self):
-        self.set_process_time(5) # <--- set how long your audio look will be (5 seconds)
+        self.set_process_time(5) # <--- set how long your audio loop will be (5 seconds)
         self.os.create_sin_oscillators(3) # <--- create 3 oscillators 
   
     def process_block(self):
