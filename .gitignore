@@ -1,5 +1,5 @@
 main.py 
-
+*.wav
 .vscode
-
+.DS_Store
 __pycache__
