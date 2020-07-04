@@ -1,6 +1,5 @@
 import numpy as np
 
-
 class Oscillators: 
     def __init__(self, fs=44100):
         self.fs = fs

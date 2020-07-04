@@ -1,10 +1,12 @@
 import numpy as np
-from oscillators import Oscillators
+from pysoundtoolz.oscillators import Oscillators
+from pysoundtoolz.delays import Delays
 
 class AudioProcessorGeneric:
     def __init__(self, fs=44100):
         self.samplerate = fs
         self.os = Oscillators()
+        self.de = Delays()
         self._event_chain()
 
     def _event_chain(self):
@@ -13,7 +15,7 @@ class AudioProcessorGeneric:
         self.post_process()
 
     def set_process_time(self, seconds):
-        self.process_time = self.samplerate * seconds
+        self.process_time = int(self.samplerate * seconds)
         self.output_stream = np.zeros(self.process_time)
 
     def on_start_up(self):

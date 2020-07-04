@@ -1,0 +1,3 @@
+from pysoundtoolz.oscillators import Oscillators
+from pysoundtoolz.audioprocessorgeneric import AudioProcessorGeneric
+from pysoundtoolz.delays import Delays

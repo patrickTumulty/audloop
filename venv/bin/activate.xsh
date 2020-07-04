@@ -28,7 +28,7 @@ def _deactivate(args):
 _deactivate(["nondestructive"])
 aliases["deactivate"] = _deactivate
 
-$VIRTUAL_ENV = r"/Users/ptumulty/Developer/Projects/pyaudiofx/venv"
+$VIRTUAL_ENV = r"/Users/ptumulty/Developer/Projects/pysoundtoolz_project/venv"
 
 $_OLD_VIRTUAL_PATH = $PATH
 $PATH = $PATH[:]
