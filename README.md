@@ -8,7 +8,7 @@ The three methods `on_start_up()`, `process_block()`, and `post_process()` need 
 least, put `pass` in each method to get the class to run. The names suggest when each one will be executed at runtime.
 
 ```python
-from audioprocessorgeneric import AudioProcessorGeneric, Flanger
+from pysoundtoolz import AudioProcessorGeneric, Flanger
 
 class AudioProcessor(AudioProcessorGeneric):
     def on_start_up(self):
@@ -37,7 +37,7 @@ class AudioProcessor(AudioProcessorGeneric):
 `Sqrosc`
 
 ## Delays
-`Delay` Sample based delay
+`Delay` 
 
 ## Effects
 `Flanger`
