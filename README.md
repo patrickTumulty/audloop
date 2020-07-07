@@ -4,8 +4,8 @@
 # Example
 
 The code below is a suggested use case. Simply create a class that inherits from the `AudioProcessorGeneric` class. 
-The three methods `on_start_up()`, `process_block()`, and `post_process()` need to be implemented. You need to at the very 
-least put `pass` in each method to get the class to run. The names suggest when each one will be executed at runtime.
+The three methods `on_start_up()`, `process_block()`, and `post_process()` need to be implemented. You need to, at the very 
+least, put `pass` in each method to get the class to run. The names suggest when each one will be executed at runtime.
 
 ```python
 from audioprocessorgeneric import AudioProcessorGeneric, Flanger
