@@ -17,6 +17,27 @@ class DelayBuffer:
     def read(self):
         return self.items[self.read_point]
 
+
+class Delay:
+    def __init__(self, max_length):
+        self.buffer = DelayBuffer(max_length)
+    
+    def delay(self, x, samples):
+        """
+        Sample delay.
+
+        x : float
+            Audio signal
+
+        samples : int 
+            Signal delayed by indicated number of samples
+        """
+        if self.buffer.read_point != samples:
+            self.buffer.set_read_point(samples)
+        self.buffer.push(x)
+        return self.buffer.read()
+
+
 class Delays:
     def __init__(self):
         self._delays = {}
