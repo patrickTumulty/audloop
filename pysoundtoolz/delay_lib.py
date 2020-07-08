@@ -22,22 +22,44 @@ class Delay:
     def __init__(self, max_length):
         self.buffer = DelayBuffer(max_length)
     
-    def delay(self, x, samples):
+    def delay(self, x, n):
         """
         Sample delay.
 
         x : float
             Audio signal
 
-        samples : int 
-            Signal delayed by indicated number of samples
+        n : int 
+            Delay length in samples
         """
-        if self.buffer.read_point != samples:
-            self.buffer.set_read_point(samples)
+        if self.buffer.read_point != n:
+            self.buffer.set_read_point(n)
         self.buffer.push(x)
         return self.buffer.read()
 
 
+class FDelay:
+    def __init__(self, max_length):
+        self.d1 = Delay(max_length + 1)
+        self.d2 = Delay(max_length + 1)
+        self.frac = 0.0
+
+    def fdelay(self, x, n):
+        """
+        Simple 'n' samples fractional delay based on 2 interpolated
+        delay lines. 
+
+        x : float
+            Audio signal.
+
+        n : int or float
+            Delay length in samples 
+        """
+        if (samples % 1) != self.frac:
+            self.frac = samples
+        return self.d1.delay(x, int(n))*(1-self.frac) + self.d2.delay(x, int(n)+1)*(self.frac)
+
+# Below is deprecated code 
 class Delays:
     def __init__(self):
         self._delays = {}

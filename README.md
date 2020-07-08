@@ -37,7 +37,7 @@ class AudioProcessor(AudioProcessorGeneric):
 `Sqrosc`
 
 ## Delays
-`Delay` 
+`Delay` `FDelay`
 
 ## Effects
 `Flanger`
