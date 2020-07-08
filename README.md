@@ -18,7 +18,7 @@ class AudioProcessor(AudioProcessorGeneric):
   
     def process_block(self):
         for i in range(self.process_time): 
-            self.output_stream[i] += self.fl.flanger(self.imported_audio[i], 2, 0.6, 0.3) # calling the flanger module in the audio loop 
+            self.output_stream[i] += self.fl.flanger(self.fio.imported_audio[i], 2, 0.6, 0.3) # calling the flanger module in the audio loop 
             
     def post_process(self):
         self.fio.export_audio("EXAMPLE_OUTPUT.wav", self.output_stream)
