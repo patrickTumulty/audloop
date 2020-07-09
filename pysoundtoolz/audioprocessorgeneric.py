@@ -31,8 +31,8 @@ class AudioProcessorGeneric:
 
 
 class AudioFileHandler:
-    def __init__(self):
-        self.fs = 0
+    def __init__(self, fs=44100):
+        self.fs = fs
         self.imported_audio = 0
         self.length_samples = 0
         self.length_seconds = 0
