@@ -55,8 +55,8 @@ class FDelay:
         n : int or float
             Delay length in samples 
         """
-        if (samples % 1) != self.frac:
-            self.frac = samples
+        if (n % 1) != self.frac:
+            self.frac = n
         return self.d1.delay(x, int(n))*(1-self.frac) + self.d2.delay(x, int(n)+1)*(self.frac)
 
 # Below is deprecated code 
