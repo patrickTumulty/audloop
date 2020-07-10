@@ -14,8 +14,8 @@ import pysoundtoolz as pst
 
 class AudioProcessor(AudioProcessorGeneric):
     def on_start_up(self):
-        self.fio.import_audio("EXAMPLE_FILE.wav")  # import wav file
-        self.set_process_time(self.fio.length_samples, 'samples') # set the audio loop to be the same length as the imported audio. 
+        self.fio.import_audio("EXAMPLE_FILE.wav")                   # import wav file
+        self.set_process_time(self.fio.length_samples, 'samples')   # set the audio loop to be the same length as the imported audio. 
         self.fl = pst.Flanger() # initialize the Flanger module
   
     def process_block(self):
@@ -32,15 +32,15 @@ class AudioProcessor(AudioProcessorGeneric):
 class PTAudioProcessor(AudioProcessorGeneric):
     def on_start_up(self):
         self.set_process_time(10)
-        self.s1 = pst.Sawosc()
-        self.en = pst.EnvGen([(0.01, 1),(0.2, 0)])
-        self.cl = pst.Clock() 
-        self.no = pst.WhiteNoise()
+        self.s1 = pst.Sawosc()                     # Initialize Sawosc module
+        self.en = pst.EnvGen([(0.01, 1),(0.2, 0)]) # Generate a linear envelope from breakpoints
+        self.cl = pst.Clock()                      # Intialize Clock
+        self.no = pst.WhiteNoise()                 # Initialize Whitenoise
 
     def process_block(self):
         for i in range(self.process_time):
-            f = self.no.whitenoise_range(200, 1000, 2) 
-            self.output_stream[i] += self.s1.sawosc(f) * self.en.env(self.cl.clock(2))
+            f = self.no.whitenoise_range(200, 1000, 2)                                  # Value between 200 and 1000 every 2Hz 
+            self.output_stream[i] += self.s1.sawosc(f) * self.en.env(self.cl.clock(2))  # clock will trigger envelope every 2Hz 
 
     def post_process(self):
         self.fio.export_audio('saw_melody.wav', self.output_stream)
