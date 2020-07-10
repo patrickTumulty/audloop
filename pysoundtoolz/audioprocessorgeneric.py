@@ -49,7 +49,7 @@ class AudioFileHandler:
         self.length_seconds = 0
         self.is_stereo = False
 
-    def import_audio(self, fileName):
+    def read_wav(self, fileName):
         """
         Import audio file. 
 
@@ -68,7 +68,7 @@ class AudioFileHandler:
     def _file_info_printer(self, fileName):
         print("{} | Is Stereo : {} | SampleRate : {} | Length : {}s".format(fileName, self.is_stereo, self.fs, self.length_seconds))
 
-    def export_audio(self, name, data):
+    def write_wav(self, name, data):
         """
         Export audio to wav file. 
 
