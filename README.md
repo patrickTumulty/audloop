@@ -14,7 +14,7 @@ import pysoundtoolz as pst
 
 class AudioProcessor(AudioProcessorGeneric):
     def on_start_up(self):
-        self.fio.import_audio("EXAMPLE_FILE.wav")                   # import wav file
+        self.fio.read_wav("EXAMPLE_FILE.wav")                   # import wav file
         self.set_process_time(self.fio.length_samples, 'samples')   # set the audio loop to be the same length as the imported audio. 
         self.fl = pst.Flanger() # initialize the Flanger module
   
@@ -23,7 +23,7 @@ class AudioProcessor(AudioProcessorGeneric):
             self.output_stream[i] += self.fl.flanger(self.fio.imported_audio[i], 2, 0.6, 0.3) # calling the flanger module in the audio loop 
             
     def post_process(self):
-        self.fio.export_audio("EXAMPLE_OUTPUT.wav", self.output_stream)
+        self.fio.write_wav("EXAMPLE_OUTPUT.wav", self.output_stream)
 
 ```
 
@@ -43,7 +43,7 @@ class PTAudioProcessor(AudioProcessorGeneric):
             self.output_stream[i] += self.s1.sawosc(f) * self.en.env(self.cl.clock(2))  # clock will trigger envelope every 2Hz 
 
     def post_process(self):
-        self.fio.export_audio('saw_melody.wav', self.output_stream)
+        self.fio.write_wav('saw_melody.wav', self.output_stream)
 ```
 
 # Current Modules Available
