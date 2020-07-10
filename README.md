@@ -36,9 +36,16 @@ class AudioProcessor(AudioProcessorGeneric):
 `Triosc` 
 `Sqrosc`
 
+## Noise
+`Whitenoise`
+
+## Envelopes / Clocks
+`EnvGen` `Clock`
+
 ## Delays
 `Delay` `FDelay`
 
 ## Effects
 `Flanger`
+`Transpose` In progress 
 

@@ -15,7 +15,7 @@ class LUT_Factory:
         return np.cos(np.linspace(0, self.pi2, self.table_size))
     
     def _generate_saw_table(self):
-        return np.append(np.linspace(0, 1, int(self.table_size/2)), np.linspace(-1, 0, int(self.table_size/2))) 
+        return np.linspace(-1, 1, self.table_size)
 
     def _generate_tri_table(self):
         ramp = int(self.table_size / 4)

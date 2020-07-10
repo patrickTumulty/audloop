@@ -14,10 +14,21 @@ class AudioProcessorGeneric:
         self.post_process()
 
     def set_process_time(self, time, mode='seconds'):
+        """
+        Set the length of the process block audio loop as well as the length 
+        of the output stream array. 
+
+        time : int or float (Depends on mode)
+            Set audio loop duration as well as output stream length
+
+        mode : string
+            Either 'seconds' or 'samples'. Dictates how you want to define time. 
+            Recommended to use samples when making the audio loop the same length as an imported audio file. 
+        """
         if mode.lower() == 'seconds':
             self.process_time = int(self.fs * time)
         elif mode.lower() == 'samples':
-            self.post_process = time
+            self.process_time = time
         self.output_stream = np.zeros(self.process_time)
 
     def on_start_up(self):
@@ -39,6 +50,12 @@ class AudioFileHandler:
         self.is_stereo = False
 
     def import_audio(self, fileName):
+        """
+        Import audio file. 
+
+        fileName : string
+            Name, or file path, for local wav file to be imported. 
+        """
         f = sf.read(fileName)
         self.fs = f[1]
         self.imported_audio = f[0]
@@ -46,11 +63,20 @@ class AudioFileHandler:
         self.length_seconds = round(self.length_samples / self.fs, 2) 
         if len(self.imported_audio.shape) == 2:
             self.is_stereo = True
-        self.file_info_printer(fileName)
+        self._file_info_printer(fileName)
 
-    def file_info_printer(self, fileName):
+    def _file_info_printer(self, fileName):
         print("{} | Is Stereo : {} | SampleRate : {} | Length : {}s".format(fileName, self.is_stereo, self.fs, self.length_seconds))
 
     def export_audio(self, name, data):
+        """
+        Export audio to wav file. 
+
+        name : string 
+            Filename
+
+        data : numpy array
+            Audio data 
+        """
         print("Writing {} ...".format(name))
         sf.write(name, data, self.fs)
