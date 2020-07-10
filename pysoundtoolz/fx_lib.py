@@ -23,7 +23,6 @@ class Transpose:
         d = np.fmod((i + window), window)
         self.dt = d
        
-
 #=========================================
 
 class Flanger:

@@ -58,6 +58,11 @@ class Triosc(Osc):
         return amplitude_value
 
 
+# ======================================================================
+# Below is deprecated code
+# Not currently included in pysoundtoolz import 
+# ======================================================================
+
 class Oscillators: 
     def __init__(self, fs=44100):
         self.fs = fs
