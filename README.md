@@ -7,14 +7,16 @@ The code below is a suggested use case. Simply create a class that inherits from
 The three methods `on_start_up()`, `process_block()`, and `post_process()` need to be implemented. You need to, at the very 
 least, put `pass` in each method to get the class to run. The names suggest when each one will be executed at runtime.
 
+## Applying A Flanger Effect To An Imported Audio File
 ```python
-from pysoundtoolz import AudioProcessorGeneric, Flanger
+from pysoundtoolz import AudioProcessorGeneric
+import pysoundtoolz as pst
 
 class AudioProcessor(AudioProcessorGeneric):
     def on_start_up(self):
         self.fio.import_audio("EXAMPLE_FILE.wav")  # import wav file
         self.set_process_time(self.fio.length_samples, 'samples') # set the audio loop to be the same length as the imported audio. 
-        self.fl = Flanger() # initialize the Flanger module
+        self.fl = pst.Flanger() # initialize the Flanger module
   
     def process_block(self):
         for i in range(self.process_time): 
@@ -23,6 +25,25 @@ class AudioProcessor(AudioProcessorGeneric):
     def post_process(self):
         self.fio.export_audio("EXAMPLE_OUTPUT.wav", self.output_stream)
 
+```
+
+## Creating A Random Melody Using A Saw Wave 
+```python
+class PTAudioProcessor(AudioProcessorGeneric):
+    def on_start_up(self):
+        self.set_process_time(10)
+        self.s1 = pst.Sawosc()
+        self.en = pst.EnvGen([(0.01, 1),(0.2, 0)])
+        self.cl = pst.Clock() 
+        self.no = pst.WhiteNoise()
+
+    def process_block(self):
+        for i in range(self.process_time):
+            f = self.no.whitenoise_range(200, 1000, 2) 
+            self.output_stream[i] += self.s1.sawosc(f) * self.en.env(self.cl.clock(2))
+
+    def post_process(self):
+        self.fio.export_audio('saw_melody.wav', self.output_stream)
 ```
 
 # Current Modules Available
