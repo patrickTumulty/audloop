@@ -68,5 +68,10 @@ class PTAudioProcessor(AudioProcessorGeneric):
 
 ## Effects
 `Flanger`
-`Transpose` In progress 
+
+## Utility
+`rad2deg` 
+`deg2rad`
+`lin_pan`
+`const_pwr_pan`
 
