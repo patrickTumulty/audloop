@@ -68,7 +68,7 @@ class AudioFileHandler:
     def _file_info_printer(self, fileName):
         print("{} | Is Stereo : {} | SampleRate : {} | Length : {}s".format(fileName, self.is_stereo, self.fs, self.length_seconds))
 
-    def write_wav(self, name, data):
+    def write_wav(self, name, data, playback=False):
         """
         Export audio to wav file. 
 
@@ -80,3 +80,8 @@ class AudioFileHandler:
         """
         print("Writing {} ...".format(name))
         sf.write(name, data, self.fs)
+        if playback:
+            self._play_wav(name)
+
+    def _play_wav(self, name):
+        print("Playing {} ...".format(name))
