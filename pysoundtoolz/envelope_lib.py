@@ -74,25 +74,29 @@ class Clock:
         else:
             return 0
 
-class TimeScore:
-    def __init__(self, score, key, fs=44100): 
+class Score:
+    def __init__(self, s, fs=44100): 
         self.fs = fs
-        self.key = key
-        self.score = score
-        self.score_clock = self._create_clock()
+        self.s = s
+        self.counter = 0
+        
+        self.current_note = 0
+        self._time_score()
+        self.number_of_notes = len(self.time) 
+        self.frequency = self.s[0][1]
 
-    def _create_clock(self):
-        l = 0
-        for i, item in enumerate(self.score):
-            l += int(item[0] * self.fs)
-        timer = np.zeros(l)
-        for i, item in enumerate(self.score):
-            timer[int(item[1] * self.fs)] = 1
-        timer[0] = 1
-        return timer
+    def _time_score(self):
+        self.time = np.array([], dtype=int)
+        for i, item in enumerate(self.s):
+            self.time = np.append(int(item[0] * self.fs), self.time)
+    
+    def score(self):
+        if self.current_note < self.number_of_notes:
+            self.counter += 1
+            if self.counter % self.time[self.current_note] == 0:
+                self.current_note += 1
+                if self.current_note < self.number_of_notes:
+                    self.frequency = self.s[self.current_note][1]
 
-
-
-class BeatScore:
-    def __init__(self, score, fs=44100):
-        self.fs = fs
+    def get_current_frequency(self):
+        return self.frequency

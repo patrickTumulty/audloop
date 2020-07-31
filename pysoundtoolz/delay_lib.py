@@ -3,7 +3,7 @@ import numpy as np
 
 class DelayBuffer:
     def __init__(self, length):
-        self.items = np.zeros(length)
+        self.buffer = np.zeros(length)
         self.max_length = length
         self.read_point = 0;
     
@@ -11,11 +11,25 @@ class DelayBuffer:
         self.read_point = i
 
     def push(self, value):
-        self.items = np.roll(self.items, 1)
-        self.items[0] = value
+        self.buffer = np.roll(self.buffer, 1)
+        self.buffer[0] = value
 
     def read(self):
-        return self.items[self.read_point]
+        return self.buffer[self.read_point]
+
+class EchoBuffer:
+    def __init__(self, length, fs=44100):
+        self.fs = fs
+        self.buffer = np.zeros(length)
+        self.max_length = length
+        self.read_points = []
+
+    def set_read_points(self, delay_time):
+        n = delay_time * self.fs
+        self.read_points = [(i * n, 1) for i in range(1, self.max_length // n)]
+
+    
+
 
 
 class Delay:

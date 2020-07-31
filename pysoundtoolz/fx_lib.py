@@ -25,15 +25,25 @@ class Transpose:
        
 #=========================================
 
+
+
+
 class Flanger:
     def __init__(self):
+        """
+        Simple flanger audio effect. 
+        """
         self.de = Delay(128)
         self.s1 = Sinosc()
 
-    def flanger(self, x, frequency=2, depth=1, wet=1):
+    def flanger(self, signal, frequency=2, depth=1, wet=1):
         """
-        x : float
-            Audio signal input
+        Simple flanger audio effect. 
+
+        Parameters: 
+
+        signal : float
+            Audio sample
 
         frequency : int or float
             Speed of flanger oscillation
