@@ -1,5 +1,5 @@
 # pySoundToolz
-`pySoundToolz` is a library in development. Its purpose is to enable similar functionality to that of sound specific languages/programs such as SuperCollider, FAUST, or MAX-MSP, but in a Python programming environment. `pySoundToolz`, in its current state, will run all audio DSP offline. Audio is meant to be read in as a wav file or synthesized from scratch and then exported as a new file. With that said, all `pySoundToolz` modules are coded as if they are running in a realtime audio loop. This design choice was made so that any algorithms written with `pySoundToolz` could be ported over to other languages, such as C++, to do realtime DSP. 
+`pySoundToolz` is a library in development. Its purpose is to enable similar functionality to that of sound specific languages/programs such as SuperCollider, FAUST, or MAX-MSP in a Python programming environment. `pySoundToolz`, in its current state, will run all audio DSP offline. Audio is meant to be read in as a wav file or synthesized from scratch. The audible result will be a newly written wav file. With that said, all `pySoundToolz` modules are coded as if they are running in a realtime audio loop. This design choice was made so that any algorithms written with `pySoundToolz` could be ported over to other languages, such as C++, to do realtime DSP. 
 
 # Example
 
