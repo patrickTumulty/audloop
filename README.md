@@ -61,7 +61,11 @@ class PTAudioProcessor(AudioProcessorGeneric):
 `Whitenoise`
 
 ## Envelopes / Clocks
-`EnvGen` `Clock`
+`EnvGen` `Clock` `Score`
+
+## Analysis 
+`RMSDetector`
+`PeakDetector`
 
 ## Delays
 `Delay` `FDelay`
