@@ -11,7 +11,7 @@ class RMSDetector:
         """
         self.fs = fs
         self.t = 0.1
-        self.alpha = np.exp(-1/(self.t * self.fs))
+        self.alpha = np.exp(-1 / (self.t * self.fs))
         self.prev = 0
 
     def rms_detector(self, signal, t=0.01):
@@ -31,10 +31,11 @@ class RMSDetector:
         """
         if self.t != t:
             self.t = t
-            self.alpha = np.exp(-1/(t * self.fs))
-        self.prev = np.sqrt((self.alpha * (self.prev**2)) + ((1 - self.alpha) * (signal**2)))
+            self.alpha = np.exp(-1 / (t * self.fs))
+        self.prev = np.sqrt((self.alpha * (self.prev ** 2)) + ((1 - self.alpha) * (signal ** 2)))
         return self.prev
-    
+
+
 class PeakDetector:
     def __init__(self, fs=44100):
         """
@@ -43,12 +44,12 @@ class PeakDetector:
         """
         self.fs = fs
         self.t = 0.01
-        self.rA = np.exp(-1/(self.t * self.fs))
+        self.rA = np.exp(-1 / (self.t * self.fs))
         self.prev = 0
 
     def _recalc_coef(self, rel):
         self.t = rel
-        self.rA = np.exp(-1/(self.t * self.fs))
+        self.rA = np.exp(-1 / (self.t * self.fs))
 
     def peak_detector(self, signal, rel=0.01):
         """
@@ -69,5 +70,5 @@ class PeakDetector:
         if signal > self.prev:
             self.prev = signal
         else:
-            self.prev = (self.rA * self.prev) + ((1-self.rA)*signal)
+            self.prev = (self.rA * self.prev) + ((1 - self.rA) * signal)
         return self.prev

@@ -6,7 +6,7 @@ class DelayBuffer:
         self.buffer = np.zeros(length)
         self.max_length = length
         self.read_point = 0;
-    
+
     def set_read_point(self, i):
         self.read_point = i
 
@@ -16,6 +16,7 @@ class DelayBuffer:
 
     def read(self):
         return self.buffer[self.read_point]
+
 
 class EchoBuffer:
     def __init__(self, length, fs=44100):
@@ -28,14 +29,11 @@ class EchoBuffer:
         n = delay_time * self.fs
         self.read_points = [(i * n, 1) for i in range(1, self.max_length // n)]
 
-    
-
-
 
 class Delay:
     def __init__(self, max_length):
         self.buffer = DelayBuffer(max_length)
-    
+
     def delay(self, x, n):
         """
         Sample delay.
@@ -71,29 +69,5 @@ class FDelay:
         """
         if (n % 1) != self.frac:
             self.frac = n
-        return self.d1.delay(x, int(n))*(1-self.frac) + self.d2.delay(x, int(n)+1)*(self.frac)
+        return self.d1.delay(x, int(n)) * (1 - self.frac) + self.d2.delay(x, int(n) + 1) * (self.frac)
 
-# Below is deprecated code 
-class Delays:
-    def __init__(self):
-        self._delays = {}
-
-    def create_delay(self, delay_id, max_delay):
-        self._delays[delay_id] = DelayBuffer(max_delay)
-
-    def delay(self, signal, samples, delay_id):
-        de = self._delays[delay_id]
-        if de.read_point != samples:
-            de.read_point = samples
-            de.set_read_point(samples)
-        de.push(signal)
-        return de.read()
-
-
-
-
-
-
-
-
-        

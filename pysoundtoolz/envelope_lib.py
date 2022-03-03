@@ -1,8 +1,8 @@
 import numpy as np
-import matplotlib.pyplot as plt
+
 
 class EnvGen:
-    def __init__(self, break_points, fs=44100): # [(0.2, 1),(0.5, 0.3),(0.1, 0)]
+    def __init__(self, break_points, fs=44100):  # [(0.2, 1),(0.5, 0.3),(0.1, 0)]
         """
         Generate linear amplitude ramps in between defined breakpoints. 
 
@@ -20,7 +20,7 @@ class EnvGen:
 
     def create_envelope(self):
         last = 0
-        l = len(self.bp)
+        env = np.array(0)
         for i, item in enumerate(self.bp):
             s = int(item[0] * self.fs)
             if i == 0:
@@ -38,7 +38,7 @@ class EnvGen:
             return self.env_table[self.counter]
         else:
             return 0
-            
+
 
 class Clock:
     def __init__(self, fs=44100):
@@ -47,7 +47,7 @@ class Clock:
         self.frequency = 0
         self.bpm = 0
         self.digital_period = 0
-    
+
     def clock_hz(self, frequency):
         """
         This clock periodically returns a value of 1 at the desired frequency. 
@@ -57,39 +57,40 @@ class Clock:
         """
         if self.frequency != frequency:
             self.frequency = frequency
-            self.digital_period = int(self.fs/self.frequency)
-        self.counter = (self.counter + 1) % self.digital_period
-        if self.counter == 0:
-            return 1
-        else:
-            return 0
-    
-    def clock_bpm(self, bpm):
-        if self.bpm != bpm:
-            self.bpm = bpm
-            self.digital_period = int((60.0/bpm)*self.fs)
+            self.digital_period = int(self.fs / self.frequency)
         self.counter = (self.counter + 1) % self.digital_period
         if self.counter == 0:
             return 1
         else:
             return 0
 
+    def clock_bpm(self, bpm):
+        if self.bpm != bpm:
+            self.bpm = bpm
+            self.digital_period = int((60.0 / bpm) * self.fs)
+        self.counter = (self.counter + 1) % self.digital_period
+        if self.counter == 0:
+            return 1
+        else:
+            return 0
+
+
 class Score:
-    def __init__(self, s, fs=44100): 
+    def __init__(self, s, fs=44100):
         self.fs = fs
         self.s = s
         self.counter = 0
-        
+
         self.current_note = 0
         self._time_score()
-        self.number_of_notes = len(self.time) 
+        self.number_of_notes = len(self.time)
         self.frequency = self.s[0][1]
 
     def _time_score(self):
         self.time = np.array([], dtype=int)
         for i, item in enumerate(self.s):
             self.time = np.append(int(item[0] * self.fs), self.time)
-    
+
     def score(self):
         if self.current_note < self.number_of_notes:
             self.counter += 1

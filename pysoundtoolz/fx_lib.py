@@ -2,10 +2,9 @@ import numpy as np
 from pysoundtoolz import *
 
 
-
-#=========================================
+# =========================================
 #  CODE IN PROGRESS
-#=========================================
+# =========================================
 class Transpose:
     def __init__(self, window, crossfade):
         self.max_delay = 65536
@@ -16,16 +15,16 @@ class Transpose:
 
     def transpose(self, x, semitone):
         self.calc(semitone, self.window)
-        return self.fd1.fdelay(x, self.dt)*np.fmin(self.dt/x, 1) + self.fd2.fdelay(x, self.dt+self.window)*(1-np.fmin(self.dt/x,1))
+        return self.fd1.fdelay(x, self.dt) * np.fmin(self.dt / x, 1) + self.fd2.fdelay(x, self.dt + self.window) * (
+                    1 - np.fmin(self.dt / x, 1))
 
     def calc(self, semitone, window):
-        i = 1 - np.power(2, semitone/12) + self.dt
+        i = 1 - np.power(2, semitone / 12) + self.dt
         d = np.fmod((i + window), window)
         self.dt = d
-       
-#=========================================
 
 
+# =========================================
 
 
 class Flanger:
@@ -55,6 +54,4 @@ class Flanger:
             Level at which flange signal is added to the original
         """
         wav = ((self.s1.sinosc(frequency) + 1) * 63) * depth
-        return x + (self.de.delay(x, int(wav)) * wet) 
-
-        
+        return signal + (self.de.delay(signal, int(wav)) * wet)

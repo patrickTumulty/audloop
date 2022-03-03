@@ -1,8 +1,12 @@
 import numpy as np
 import soundfile as sf
+from abc import ABCMeta, abstractmethod
 from pysoundtoolz import *
 
+
 class AudioProcessorGeneric:
+    __metaclass__ = ABCMeta
+
     def __init__(self, fs=44100):
         self.fs = fs
         self.fio = AudioFileHandler()
@@ -31,12 +35,15 @@ class AudioProcessorGeneric:
             self.process_time = time
         self.output_stream = np.zeros(self.process_time)
 
+    @abstractmethod
     def on_start_up(self):
         raise NotImplementedError("Need to implement 'on_start_up()' method.")
 
+    @abstractmethod
     def process_block(self):
         raise NotImplementedError("Need to implement 'process_block()' method.")
 
+    @abstractmethod
     def post_process(self):
         raise NotImplementedError("Need to implement 'post_process()' method.")
 
@@ -49,24 +56,25 @@ class AudioFileHandler:
         self.length_seconds = 0
         self.is_stereo = False
 
-    def read_wav(self, fileName):
+    def read_wav(self, filename):
         """
         Import audio file. 
 
         fileName : string
             Name, or file path, for local wav file to be imported. 
         """
-        f = sf.read(fileName)
+        f = sf.read(filename)
         self.fs = f[1]
         self.imported_audio = f[0]
-        self.length_samples = len(self.imported_audio) 
-        self.length_seconds = round(self.length_samples / self.fs, 2) 
+        self.length_samples = len(self.imported_audio)
+        self.length_seconds = round(self.length_samples / self.fs, 2)
         if len(self.imported_audio.shape) == 2:
             self.is_stereo = True
-        self._file_info_printer(fileName)
+        self._file_info_printer(filename)
 
     def _file_info_printer(self, fileName):
-        print("{} | Is Stereo : {} | SampleRate : {} | Length : {}s".format(fileName, self.is_stereo, self.fs, self.length_seconds))
+        print("{} | Is Stereo : {} | SampleRate : {} | Length : {}s".format(fileName, self.is_stereo, self.fs,
+                                                                            self.length_seconds))
 
     def write_wav(self, name, data, playback=False):
         """
