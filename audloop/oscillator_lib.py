@@ -1,5 +1,5 @@
 import numpy as np
-from pysoundtoolz.lookup_tables import sin_lookup, saw_lookup, sqr_lookup, tri_lookup, table_size, cos_lookup
+from audloop.lookup_tables import sin_lookup, saw_lookup, sqr_lookup, tri_lookup, table_size, cos_lookup
 
 
 class Osc:

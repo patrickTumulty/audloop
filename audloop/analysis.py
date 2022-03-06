@@ -1,5 +1,5 @@
 import numpy as np
-from pysoundtoolz import *
+from audloop import *
 
 
 class RMSDetector:

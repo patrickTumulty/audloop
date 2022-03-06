@@ -1,7 +1,7 @@
 import numpy as np
 import soundfile as sf
 from abc import ABCMeta, abstractmethod
-from pysoundtoolz import *
+from audloop import *
 
 
 class AudioProcessorGeneric:
