@@ -1,40 +1,36 @@
 import numpy as np
 
+PI2 = np.pi * 2
+TABLE_SIZE = 2 ** 16  # 65536 values
+
 
 class LUTFactory:
-    def __init__(self):
-        self.table_size = 2**16 # 65536 values
-        self.pi2 = 2 * np.pi
+    @staticmethod
+    def generate_sin_table():
+        return np.sin(np.linspace(0, PI2, TABLE_SIZE))
 
-    def get_table_size(self):
-        return self.table_size
+    @staticmethod
+    def generate_cos_table():
+        return np.cos(np.linspace(0, PI2, TABLE_SIZE))
 
-    def generate_sin_table(self):
-        return np.sin(np.linspace(0, self.pi2, self.table_size))
+    @staticmethod
+    def generate_saw_table():
+        return np.linspace(-1, 1, TABLE_SIZE)
 
-    def generate_cos_table(self):
-        return np.cos(np.linspace(0, self.pi2, self.table_size))
-
-    def generate_saw_table(self):
-        return np.linspace(-1, 1, self.table_size)
-
-    def generate_tri_table(self):
-        ramp = int(self.table_size / 4)
+    @staticmethod
+    def generate_tri_table():
+        ramp = int(TABLE_SIZE / 4)
         return np.append(np.linspace(0, 1, ramp + 1)[:-1],
                          np.append(np.linspace(1, -1, ramp * 2),
                                    np.linspace(-1, 0, ramp + 1)[1:]))
 
-    def generate_sqr_table(self):
-        return np.append(np.ones(int(self.table_size / 2)), np.ones(int(self.table_size / 2)) * -1)
+    @staticmethod
+    def generate_sqr_table():
+        return np.append(np.ones(int(TABLE_SIZE / 2)), np.ones(int(TABLE_SIZE / 2)) * -1)
 
 
-lutf = LUTFactory()
-
-# Module wide global variables 
-table_size = lutf.get_table_size()
-
-sin_lookup = lutf.generate_sin_table()
-cos_lookup = lutf.generate_cos_table()
-saw_lookup = lutf.generate_saw_table()
-tri_lookup = lutf.generate_tri_table()
-sqr_lookup = lutf.generate_sqr_table()
+sin_lookup = LUTFactory.generate_sin_table()
+cos_lookup = LUTFactory.generate_cos_table()
+saw_lookup = LUTFactory.generate_saw_table()
+tri_lookup = LUTFactory.generate_tri_table()
+sqr_lookup = LUTFactory.generate_sqr_table()
