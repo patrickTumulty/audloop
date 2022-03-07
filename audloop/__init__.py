@@ -1,4 +1,4 @@
-from audloop.oscillator_lib import Sinosc, Cososc, Sqrosc, Triosc, Sawosc
+from audloop.oscillator_lib import *
 from audloop.audioprocessorgeneric import AudioProcessorGeneric
 from audloop.delay_lib import Delay, FDelay
 from audloop.fx_lib import Flanger, Transpose
